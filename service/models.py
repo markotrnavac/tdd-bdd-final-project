@@ -187,7 +187,7 @@ class Product(db.Model):
 
         """
         logger.info("Processing lookup for id %s ...", product_id)
-        return cls.query.get(product_id)
+        return db.session.get(cls, product_id)
 
     @classmethod
     def find_by_name(cls, name: str) -> list:

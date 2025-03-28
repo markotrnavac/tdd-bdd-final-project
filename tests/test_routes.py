@@ -163,9 +163,14 @@ class TestProductRoutes(TestCase):
         response = self.client.post(BASE_URL, data={}, content_type="plain/text")
         self.assertEqual(response.status_code, status.HTTP_415_UNSUPPORTED_MEDIA_TYPE)
 
-    #
-    # ADD YOUR TEST CASES HERE
-    #
+    def test_get_product(self):
+        """It should Read a Product"""
+        test_product = self._create_products(1)[0]
+        URL = f"{BASE_URL}/{test_product.id}"
+        response = self.client.get(URL)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        data = response.get_json()
+        self.assertEqual(data['name'], test_product.name)
 
     ######################################################################
     # Utility functions
